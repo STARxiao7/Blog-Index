@@ -55,11 +55,11 @@ const GLOBAL_CONFIG = {
   /**
    * 博客名称
    */
-  BLOG_NAME: "EsunR-Blog",
+  BLOG_NAME: "小洛的被窝",
   /**
    * 个人博客链接
    */
-  BLOG_URL: "https://blog.esunr.xyz",
+  BLOG_URL: "https://link3.cc/love7",
   /**
    * 指定中心 LOGO 图片地址
    */
@@ -67,7 +67,7 @@ const GLOBAL_CONFIG = {
   /**
    * 个人 Github 链接
    */
-  GITHUB_URL: "https://github.com/EsunR",
+  GITHUB_URL: "https://github.com/STARxiao7",
   /**
    * 背景图片地址
    */
@@ -75,9 +75,9 @@ const GLOBAL_CONFIG = {
   /**
    * ICP 备案号，留空不显示
    */
-  ICP: "京ICP证000001号",
+  ICP: "",
   ICP_URL: "https://beian.miit.gov.cn/",
-  FOOTER_INFO: true,
+  FOOTER_INFO: false,
   /**
    * 网站欢迎标语
    */
@@ -104,7 +104,7 @@ const GLOBAL_CONFIG = {
    * 网站 Title Keywords Description 的配置，用于 SEO
    */
   TKD: {
-    title: "My Blog Index",
+    title: "小洛的被窝",
     keywords: "Blog, Index, Index Page",
     description: "This is my personal blog index page.",
   },
