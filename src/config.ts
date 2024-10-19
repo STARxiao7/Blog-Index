@@ -1,7 +1,7 @@
 /** Website 分类配置 */
 const WEBSITE_SORTS: WebsiteSort[] = [
   {
-    title: "首页",
+    title: "首页测试",
     sites: [
       {
         title: "小洛的被窝",
