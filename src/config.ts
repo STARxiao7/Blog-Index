@@ -69,7 +69,7 @@ const GLOBAL_CONFIG = {
    */
   ICP: "",
   ICP_URL: "https://beian.miit.gov.cn/",
-  FOOTER_INFO: true,
+  //FOOTER_INFO: ,
   /**
    * 网站欢迎标语
    */
