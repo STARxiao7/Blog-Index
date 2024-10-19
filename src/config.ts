@@ -7,7 +7,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         title: "小洛的被窝",
         url: "https://link3.cc/love7",
         icon: "icon/love7.png",
-        color: "#0171CD",
+        //color: "#0171CD",
       },
       {
         title: "主标题",
