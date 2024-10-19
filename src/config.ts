@@ -23,18 +23,9 @@ const WEBSITE_SORTS: WebsiteSort[] = [
       },
     ],
   },
- /* {
-    title: "示例分类2",
-  },
   {
-    title: "示例分类3",
-  },
-  {
-    title: "示例分类4",
-  },
-  {
-    title: "示例分类5",
-  },
+    title: "测试",
+
   {
     title: "友情链接",
     sites: [
@@ -47,7 +38,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
     ],
   },
 ];
-*/
+
 
 /** Website 配置（2023.3.29 已废弃） */
 const WEBSITE_ITEMS: WebsiteItem[] = [];
