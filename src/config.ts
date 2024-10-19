@@ -4,9 +4,9 @@ const WEBSITE_SORTS: WebsiteSort[] = [
     title: "首页",
     sites: [
       {
-        title: "主标题",
-        url: "http://www.your-web-page.com/",
-        icon: "",
+        title: "小洛的被窝",
+        url: "https://link3.cc/love7",
+        icon: "icon/love7.png",
         color: "#0171CD",
       },
       {
