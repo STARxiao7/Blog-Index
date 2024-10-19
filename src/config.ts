@@ -23,7 +23,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
       },
     ],
   },
-  {
+ /* {
     title: "示例分类2",
   },
   {
@@ -47,6 +47,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
     ],
   },
 ];
+*/
 
 /** Website 配置（2023.3.29 已废弃） */
 const WEBSITE_ITEMS: WebsiteItem[] = [];
@@ -67,7 +68,7 @@ const GLOBAL_CONFIG = {
   /**
    * 个人 Github 链接
    */
-  GITHUB_URL: "https://github.com/STARxiao7",
+  /*GITHUB_URL: "https://github.com/STARxiao7",
   /**
    * 背景图片地址
    */
