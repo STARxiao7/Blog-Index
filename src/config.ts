@@ -35,7 +35,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
     ],
   },
   {
-    title: "",
+    title: "⠀⠀",
   },
 ];
 
