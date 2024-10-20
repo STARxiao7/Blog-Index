@@ -6,7 +6,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
       {
         title: "小洛的被窝",
         url: "https://link3.cc/love7",
-        description: " ",
+        description: "小洛的聚合页",
         icon: "/icons/小洛的被窝.png",
         //color: "#0171CD",
       },
@@ -14,7 +14,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         title: "流量卡总汇",
         description: "涵盖国内四大运营商",
         url: "https://link3.cc/kaka6",
-        icon: "http://u5a.cn/hMW3j",
+        icon: "/icons/四大运营商.png",
       },
       {
         title: "主标题",
