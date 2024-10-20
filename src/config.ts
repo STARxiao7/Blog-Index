@@ -14,7 +14,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         title: "流量卡总汇",
         description: "涵盖国内四大运营商",
         url: "https://link3.cc/kaka6",
-        icon: "https://tencentcdn.production.link3.cc/user_create_images/link3_1718950180619/module_urls/icon_1725140694195",
+        icon: "http://u5a.cn/hMW3j",
       },
       {
         title: "主标题",
