@@ -1,13 +1,13 @@
 /** Website 分类配置 */
 const WEBSITE_SORTS: WebsiteSort[] = [
   {
-    title: "首页测试",
+    title: "首页",
     sites: [
       {
         title: "小洛的被窝",
         url: "https://link3.cc/love7",
         description: "",
-        icon: "icons/love7.png",
+        icon: "/icons/love7.png",
         //color: "#0171CD",
       },
       {
