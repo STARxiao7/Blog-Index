@@ -1,7 +1,7 @@
 /** Website 分类配置 */
 const WEBSITE_SORTS: WebsiteSort[] = [
   {
-    title: "首页",
+    title: " 首页 ",
     sites: [
       {
         title: "小洛的被窝",
@@ -21,6 +21,17 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         description: "网站描述",
         url: "http://www.your-web-page.com/",
         icon: "",
+      },
+    ],
+  },
+  {
+    title: " 工具 ",
+    sites: [
+      {
+        title: "iLoveIMG",
+        description: "你的在线图片编辑器就在这里，而且永远免费！",
+        url: "https://www.iloveimg.com/zh-cn",
+        icon: "https://www.iloveimg.com/img/favicons-img/favicon-16x16.png",
       },
     ],
   },
