@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg t="1729583257537" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1637" width="256" height="256">
-  <circle cx="128" cy="128" r="100" fill="red" />
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="250px" height="269px" viewBox="0 0 250 269" enable-background="new 0 0 250 269" xml:space="preserve">
+  <svg t="1729583257537" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1637" width="250" height="269">
+    <path d="M652.03712 742.4l-56.82688-42.61888L749.01504 281.6 323.4304 326.69184 276.48 283.45344l65.47456 276.11136 23.4752-93.27616 234.10688-79.06304-206.3104 307.6096-78.44864 29.0304z" fill="#ffffff" p-id="1638"></path>
+  </svg>
 </svg>
