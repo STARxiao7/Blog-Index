@@ -31,7 +31,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         title: "iLoveIMG",
         description: "你的在线图片编辑器就在这里，而且永远免费！",
         url: "https://www.iloveimg.com/zh-cn",
-        icon: "https://www.iloveimg.com/img/iloveimg.svg",
+        icon: "https://www.iloveimg.com/img/favicons-img/favicon-16x16.png",
       },
       {
         title: "FreeConvert",
