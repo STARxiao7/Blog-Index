@@ -16,11 +16,22 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         url: "https://link3.cc/kaka6",
         icon: "/icons/四大运营商.png",
       },
+    ],
+  },
+  {
+    title: "⠀推荐⠀",
+    sites: [
       {
         title: "今天吃什么",
         description: "如何解决吃什么的烦恼？",
         url: "https://eat.chenzs.com",
         icon: "https://eat.chenzs.com/favicon.png",
+      },
+      {
+        title: "EsunR Blog",
+        description: "EsunR 的博客",
+        url: "baidu.com",
+        icon: "bakdu.com",
       },
     ],
   },
@@ -29,21 +40,21 @@ const WEBSITE_SORTS: WebsiteSort[] = [
     sites: [
       {
         title: "iLoveIMG",
-        description: "你的在线图片编辑器就在这里，而且永远免费！",
+        description: "在线图片编辑",
         url: "https://www.iloveimg.com/zh-cn",
         icon: "https://www.iloveimg.com/img/favicons-img/favicon-16x16.png",
       },
       {
         title: "FreeConvert",
-        description: "轻松在线将文件从一种格式转换为另一种格式",
+        description: "在线文件格式转换",
         url: "https://www.freeconvert.com/zh",
         icon: "https://www.freeconvert.com/favicon.ico",
       },
       {
-        title: "主标题",
-        description: "网站描述",
-        url: "http://www.your-web-page.com/",
-        icon: "",
+        title: "JiDrop",
+        description: "跨设备文件互传",
+        url: "https://jidrop.com",
+        icon: "https://jidrop.com/images/favicon-96x96.png",
       },
       {
         title: "主标题",
