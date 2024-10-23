@@ -28,10 +28,10 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         icon: "https://eat.chenzs.com/favicon.png",
       },
       {
-        title: "EsunR Blog",
-        description: "EsunR 的博客",
-        url: "baidu.com",
-        icon: "bakdu.com",
+        title: "Poki",
+        description: "在线小游戏集",
+        url: "https://poki.com",
+        icon: "https://a.poki-cdn.com/icons/apple-touch-icon.png",
       },
     ],
   },
@@ -70,7 +70,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
       },
     ],
   },
-  {
+/*  {
     title: "友情链接",
     sites: [
       {
@@ -80,7 +80,7 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         icon: "https://esunr-image-bed.oss-cn-beijing.aliyuncs.com/logo.jpg",
       },
     ],
-  },
+  },*/
   {
     title: "⠀⠀",
   },
