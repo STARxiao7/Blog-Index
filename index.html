@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>小洛的被窝</title>
-    <!-- 以下代码用于引用 Web App Manifest 文件 manifest.json，该文件应放在网站根目录下，用于向浏览器提供网页应用的相关信息，如名称、图标、启动页面等 -->
-    <link rel="manifest" href="manifest.json">
-    <!-- 针对苹果设备添加的元标签 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- 这个元标签告诉苹果设备该网页可以作为独立的应用运行，而不是在 Safari 浏览器中打开 -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-transparent">
-    <!-- 定义苹果设备上该网页应用的状态栏样式为黑色透明 -->
-    <meta name="apple-mobile-web-app-title" content="小洛的被窝">
-    <!-- 设置该网页应用在苹果设备主屏幕上显示的名称 -->
-    <!-- 针对安卓设备添加的元标签 -->
-    <meta name="mobile-web-app-capable" content="true">
-    <!-- 让安卓设备识别该网页能够作为独立应用运行 -->
-</head>
-<body>
+
+    <!-- 引入 PWA 的 manifest.json 文件 -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- iOS 特定配置：允许网站添加到主屏幕 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 设置状态栏样式，black-translucent 表示状态栏透明 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- 设置当网站添加到主屏幕后的标题 -->
+    <meta name="apple-mobile-web-app-title" content="小洛的被窝" />
+    <!-- 为 iOS 提供启动图标 -->
+    <link rel="apple-touch-icon" href="/path/to/your-icon.png" />
+
+    <!-- 设置主题颜色，影响安卓设备上的状态栏颜色 -->
+    <meta name="theme-color" content="#000000" />
+
+  </head>
+  <body>
     <div id="app"></div>
+    
+    <!-- 注册 Service Worker（用于安卓和 iOS） -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(registration) {
+            console.log('Service Worker 注册成功: ', registration);
+          })
+          .catch(function(error) {
+            console.log('Service Worker 注册失败: ', error);
+          });
+      }
+    </script>
+
+    <!-- 引入主应用脚本 -->
     <script type="module" src="/src/main.ts"></script>
-</body>
+  </body>
 </html>
