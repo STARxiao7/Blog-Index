@@ -3,12 +3,12 @@
   "short_name": "小洛的被窝",
   "icons": [
     {
-      "src": "public/icons/小洛的被窝.png",
+      "src": "/public/icons/小洛的被窝.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "public/icons/小洛的被窝.png",
+      "src": "/public/icons/小洛的被窝.png",
       "sizes": "512x512",
       "type": "image/png"
     }
