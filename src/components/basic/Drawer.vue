@@ -20,6 +20,9 @@ const emit = defineEmits<{
 const drawerIndex = ref(modelValue.value ? 99 : -1);
 const timer = ref<NodeJS.Timeout>();
 
+// 控制是否显示图标和链接的变量
+const showFooterContent = ref(true);
+
 watch(modelValue, (newVal) => {
   if (newVal === false) {
     timer.value = setTimeout(() => {
@@ -30,12 +33,15 @@ watch(modelValue, (newVal) => {
       clearTimeout(timer.value);
     }
     drawerIndex.value = 99;
+    // 打开抽屉时显示图标和链接
+    showFooterContent.value = true;
   }
 });
 
 function onCloseBtnClick() {
-  //隐藏页脚图标和指向链接
-  //emit("update:modelValue", false);
+  // 隐藏页脚图标和指向链接
+  showFooterContent.value = false;
+  emit("update:modelValue", false);
 }
 
 function onDrawerClick(e: Event) {
@@ -63,12 +69,15 @@ function onDrawerClick(e: Event) {
         <div class="drawer__content">
           <slot></slot>
         </div>
-        <div class="drawer__footer">
+        <!-- 注释掉图标和链接 -->
+        <!-- 
+        <div class="drawer__footer" v-if="showFooterContent">
           <sketch-outlined class="footer-icon" />
           <a href="https://github.com/STARxiao7/Blog-Index" target="_blank">
             Driven by <b>STARxiao7/Blog-Index</b>
           </a>
-        </div>
+        </div> 
+        -->
       </div>
     </div>
   </teleport>
