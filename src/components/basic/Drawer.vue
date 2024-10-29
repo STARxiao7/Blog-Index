@@ -34,7 +34,8 @@ watch(modelValue, (newVal) => {
 });
 
 function onCloseBtnClick() {
-  emit("update:modelValue", false);
+  //隐藏页脚图标和指向链接
+  //emit("update:modelValue", false);
 }
 
 function onDrawerClick(e: Event) {
@@ -64,8 +65,8 @@ function onDrawerClick(e: Event) {
         </div>
         <div class="drawer__footer">
           <sketch-outlined class="footer-icon" />
-          <a href="https://github.com/EsunR/Blog-Index" target="_blank">
-            Driven by <b>EsunR/Blog-Index</b>
+          <a href="https://github.com/STARxiao7/Blog-Index" target="_blank">
+            Driven by <b>STARxiao7/Blog-Index</b>
           </a>
         </div>
       </div>
