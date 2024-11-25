@@ -1,10 +1,3 @@
-name: Deploy to Tencent COS
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,27 +6,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Verify Secrets
-      run: |
-        if [ -z "${{ secrets.TENCENT_SECRET_ID }}" ]; then
-          echo "TENCENT_SECRET_ID is missing or not set!"
-          exit 1
-        else
-          echo "TENCENT_SECRET_ID is set!"
-        fi
-
-        if [ -z "${{ secrets.TENCENT_SECRET_KEY }}" ]; then
-          echo "TENCENT_SECRET_KEY is missing or not set!"
-          exit 1
-        else
-          echo "TENCENT_SECRET_KEY is set!"
-        fi
-
     - name: Install COSCLI
       run: |
         curl -o coscli.zip https://github.com/tencentyun/coscli/releases/download/v0.13.1/coscli-linux-amd64.zip
         unzip coscli.zip -d coscli
         sudo mv coscli/coscli /usr/local/bin/
+
+    - name: Debug environment
+      run: env
 
     - name: Configure COSCLI
       run: |
@@ -49,7 +29,3 @@ jobs:
       env:
         TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
         TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
-
-    - name: Upload to COS
-      run: |
-        coscli sync ./ cos://blog-index-1309745445/ --delete
