@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # 当推送到 main 分支时触发部署
+  workflow_dispatch:  # 添加手动触发支持
 
 jobs:
   deploy:
