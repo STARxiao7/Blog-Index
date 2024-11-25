@@ -3,7 +3,7 @@ name: Deploy to Tencent COS
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发部署
+      - main
 
 jobs:
   deploy:
@@ -11,7 +11,23 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # 拉取代码
+      uses: actions/checkout@v3
+
+    - name: Verify Secrets
+      run: |
+        if [ -z "${{ secrets.TENCENT_SECRET_ID }}" ]; then
+          echo "TENCENT_SECRET_ID is missing or not set!"
+          exit 1
+        else
+          echo "TENCENT_SECRET_ID is set!"
+        fi
+
+        if [ -z "${{ secrets.TENCENT_SECRET_KEY }}" ]; then
+          echo "TENCENT_SECRET_KEY is missing or not set!"
+          exit 1
+        else
+          echo "TENCENT_SECRET_KEY is set!"
+        fi
 
     - name: Install COSCLI
       run: |
