@@ -25,15 +25,15 @@ jobs:
         mkdir -p ~/.coscli
         echo "
         {
-          \"secret_id\": \"$AKID3BE7y048La|pgJjvzs3CKNuJiF40qaM8\",
-          \"secret_key\": \"$xkMAukswEiu14vcOMQUUJ1e6jJqUOH73\",
+          \"secret_id\": \"$TENCENT_SECRET_ID\",
+          \"secret_key\": \"$TENCENT_SECRET_KEY\",
           \"bucket\": \"blog-index-1309745445\",
           \"region\": \"ap-shanghai\"
         }
         " > ~/.coscli/config
       env:
-        TENCENT_SECRET_ID: ${{ secrets. AKID3BE7y048La|pgJjvzs3CKNuJiF40qaM8 }}
-        TENCENT_SECRET_KEY: ${{ secrets. xkMAukswEiu14vcOMQUUJ1e6jJqUOH73 }}
+        TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+        TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
 
     - name: Upload to COS
       run: |
