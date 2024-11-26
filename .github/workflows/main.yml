@@ -9,5 +9,5 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo Message
-        run: echo "Test workflow triggered!"
+      - name: Print Hello
+        run: echo "Hello, GitHub Actions!"
