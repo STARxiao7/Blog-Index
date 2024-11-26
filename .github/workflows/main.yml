@@ -1,13 +1,42 @@
-name: Test Workflow
+name: Deploy to Tencent Cloud COS
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:  # 手动触发
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print Message
-        run: echo "Hello, GitHub Actions!"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Debug environment
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Install COSCLI
+        run: |
+          curl -o coscli.zip https://github.com/tencentyun/coscli/releases/download/v0.13.1/coscli-linux-amd64.zip
+          unzip coscli.zip -d coscli
+          sudo mv coscli/coscli /usr/local/bin/
+
+      - name: Configure COSCLI
+        run: |
+          mkdir -p ~/.coscli
+          echo "
+          {
+            \"secret_id\": \"${{ secrets.TENCENT_SECRET_ID }}\",
+            \"secret_key\": \"${{ secrets.TENCENT_SECRET_KEY }}\",
+            \"bucket\": \"blog-index-1309745445\",
+            \"region\": \"ap-shanghai\"
+          }
+          " > ~/.coscli/config
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+
+      - name: Upload to COS
+        run: coscli sync ./dist cos://blog-index-1309745445/
