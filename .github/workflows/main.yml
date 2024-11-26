@@ -1,11 +1,16 @@
-name: Test Workflow
+name: Debug Workflow
 
 on:
-  workflow_dispatch: # 手动触发
+  workflow_dispatch:
 
 jobs:
-  test:
+  debug:
     runs-on: ubuntu-latest
     steps:
-      - name: Hello World
-        run: echo "Hello, this is a test workflow!"
+      - name: Print Secrets
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+        run: |
+          echo "SECRET_ID: $TENCENT_SECRET_ID"
+          echo "SECRET_KEY: $TENCENT_SECRET_KEY"
