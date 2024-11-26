@@ -56,12 +56,6 @@ const WEBSITE_SORTS: WebsiteSort[] = [
         url: "https://jidrop.com",
         icon: "https://jidrop.com/images/favicon-96x96.png",
       },
-      {
-        title: "测试",
-        description: "跨设备文件互传",
-        url: "https://jidrop.com",
-        icon: "https://jidrop.com/images/favicon-96x96.png",
-      },
     ],
   },
 /*  {
