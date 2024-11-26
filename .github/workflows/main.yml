@@ -1,0 +1,27 @@
+name: Deploy to Tencent Cloud COS
+
+on:
+  push:
+    branches:
+      - main  # 触发部署的分支
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install coscmd
+        run: sudo pip install coscmd
+
+      - name: Configure coscmd
+        run: |
+          coscmd config -a ${{ secrets.TENCENT_SECRET_ID }} \
+                        -s ${{ secrets.TENCENT_SECRET_KEY }} \
+                        -b blog-index-1309745445 \
+                        -r ap-shanghai
+
+      - name: Upload to COS
+        run: coscmd upload -r -f ./dist/ /
