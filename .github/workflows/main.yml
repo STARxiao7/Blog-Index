@@ -1,4 +1,4 @@
-name: Deploy to Tencent COS
+name: Deploy to Tencent Cloud COS
 
 on:
   push:
@@ -13,35 +13,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
       - name: Install COSCLI
         run: |
-          curl -o coscli.tgz https://github.com/tencentyun/coscli/releases/latest/download/coscli-linux.tgz
-          tar -xzf coscli.tgz
-          sudo mv coscli /usr/local/bin/
-
-      - name: Debug environment
-        run: env
+          curl -o coscli.zip https://github.com/tencentyun/coscli/releases/download/v0.13.1/coscli-linux-amd64.zip
+          unzip coscli.zip -d coscli
+          sudo mv coscli/coscli /usr/local/bin/
 
       - name: Configure COSCLI
         run: |
           mkdir -p ~/.coscli
-          echo "[base]" > ~/.coscli/config
-          echo "  secret_id = ${{ secrets.TENCENT_SECRET_ID }}" >> ~/.coscli/config
-          echo "  secret_key = ${{ secrets.TENCENT_SECRET_KEY }}" >> ~/.coscli/config
-          echo "  session_token = " >> ~/.coscli/config
-          echo "  protocol = https" >> ~/.coscli/config
-          echo "  host = cos.ap-guangzhou.myqcloud.com" >> ~/.coscli/config
+          echo "
+          {
+            \"secret_id\": \"${{ secrets.TENCENT_SECRET_ID }}\",
+            \"secret_key\": \"${{ secrets.TENCENT_SECRET_KEY }}\",
+            \"bucket\": \"blog-index-1309745445\",
+            \"region\": \"ap-shanghai\"
+          }
+          " > ~/.coscli/config
 
-      - name: Deploy to Tencent COS
-        run: coscli sync ./dist cos://<your-bucket-name> -r
+      - name: Upload to Tencent COS
+        run: coscli sync ./dist cos://blog-index-1309745445/
