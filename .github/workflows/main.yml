@@ -21,10 +21,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y curl unzip
 
-      # Step 3: Download and install COSCLI
+      # Step 3: Download and install COSCLI (Linux version)
       - name: Install coscli
         run: |
-          curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-windows-amd64.exe -o /tmp/coscli
+          curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
