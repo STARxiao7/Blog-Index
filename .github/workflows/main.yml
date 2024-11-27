@@ -11,41 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install dependencies
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl unzip
-          yarn install
-
-      # Step 3: Build project
-      - name: Build Project
-        run: yarn build
-
-      # Step 4: Verify build output
-      - name: Verify build output
-        run: |
-          echo "Listing all files in the current directory:"
-          ls -al
-          echo "Checking the dist folder:"
-          ls -al dist || echo "dist folder does not exist!"
-
-      # Step 5: Install coscli
       - name: Install coscli
         run: |
           curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 6: Configure coscli
       - name: Configure coscli
-        env:
-          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
-          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
           mkdir -p ~/.cos
           echo "common:
@@ -57,14 +32,7 @@ buckets:
     endpoint: cos.ap-shanghai.myqcloud.com" > ~/.cos/cos.yaml
           cat ~/.cos/cos.yaml
 
-      # Step 7: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
-          echo "Upload finished. Debugging COSCLI error output:"
-          if [ -d ./coscli_output ]; then
-            find ./coscli_output -type f -exec cat {} \;
-          else
-            echo "No error output found."
-          fi
+          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml
