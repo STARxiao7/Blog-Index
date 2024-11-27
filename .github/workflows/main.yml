@@ -1,0 +1,39 @@
+name: Deploy to Tencent Cloud COS
+
+on:
+  push:
+    branches:
+      - main  # 当推送到 main 分支时触发部署
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 安装 coscli
+      - name: Install coscli
+        run: |
+          curl -o coscli.zip https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-linux-amd64.zip
+          unzip coscli.zip -d coscli
+          sudo mv coscli/coscli /usr/local/bin/
+
+      # 配置 coscli
+      - name: Configure coscli
+        run: |
+          mkdir -p ~/.coscli
+          echo "
+          {
+            \"secret_id\": \"${{ secrets.TENCENT_SECRET_ID }}\",
+            \"secret_key\": \"${{ secrets.TENCENT_SECRET_KEY }}\",
+            \"bucket\": \"blog-index-1309745445\",
+            \"region\": \"ap-shanghai\"
+          }
+          " > ~/.coscli/config
+
+      # 上传文件到 COS
+      - name: Upload to Tencent COS
+        run: coscli sync ./ cos://blog-index-1309745445/ --delete
