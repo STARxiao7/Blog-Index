@@ -42,11 +42,8 @@ jobs:
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 6: Configure coscli
+      # Step 6: Configure coscli using secrets
       - name: Configure coscli
-        env:
-          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
-          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
           mkdir -p ~/.cos
           echo "common:" > ~/.cos/cos.yaml
@@ -65,8 +62,4 @@ jobs:
           echo "Uploading files to COS..."
           coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
           echo "Upload finished. Debugging COSCLI error output:"
-          if [ -d "./coscli_output" ]; then
-            find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
-          else
-            echo "No coscli_output directory found. Please check if the upload directory exists."
-          fi
+          find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
