@@ -67,7 +67,3 @@ EOF
           coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos.yaml
           echo "Upload finished. Listing files in COS bucket:"
           coscli ls cos://blog-index-1309745445/ --config-path ~/.cos.yaml
-
-      # Step 8: Check DNS resolution
-      - name: Check DNS resolution
-        run: nslookup cos.ap-shanghai.myqcloud.com
