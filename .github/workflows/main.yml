@@ -42,7 +42,8 @@ jobs:
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 6: Debug coscli config
+      # Step 6: Configure coscli
+        # Update coscli configuration file
       - name: Configure coscli
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
@@ -53,6 +54,9 @@ jobs:
           echo "secret_id = ${TENCENT_SECRET_ID}" >> ~/.cos/cos.yaml
           echo "secret_key = ${TENCENT_SECRET_KEY}" >> ~/.cos/cos.yaml
           echo "region = ap-shanghai" >> ~/.cos/cos.yaml
+          echo "[bucket.blog-index-1309745445]" >> ~/.cos/cos.yaml
+          echo "bucket = blog-index-1309745445" >> ~/.cos/cos.yaml
+          echo "endpoint = cos.ap-shanghai.myqcloud.com" >> ~/.cos/cos.yaml
           echo "Coscli configuration completed. Debugging config file:"
           cat ~/.cos/cos.yaml
 
@@ -60,6 +64,7 @@ jobs:
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive
-          echo "Upload completed. Listing bucket content:"
-          coscli ls cos://blog-index-1309745445/
+          coscli sync ./dist cos://blog-index-1309745445/ --recursive || {
+            echo "Upload failed. Debugging COSCLI error output:"
+            cat ./coscli_output/2024*
+          }
