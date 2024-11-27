@@ -27,13 +27,13 @@ jobs:
         run: |
           yarn build
 
-      # Step 4: Verify output folder
-      - name: Verify output folder
+      # Step 4: Debug build process
+      - name: Debug build process
         run: |
-          if [ ! -d "./dist" ]; then
-            echo "Error: dist folder does not exist. Please check your build process."
-            exit 1
-          fi
+          echo "Listing all files in the current directory:"
+          ls -al
+          echo "Checking the dist folder:"
+          ls -al dist || echo "dist folder does not exist!"
 
       # Step 5: Install coscli
       - name: Install coscli
@@ -58,7 +58,3 @@ jobs:
       - name: Upload to Tencent COS
         run: |
           coscli sync ./dist cos://blog-index-1309745445/ --recursive
-
-      # Step 8: Post-deployment message
-      - name: Post Deployment
-        run: echo "Deployment to Tencent COS completed."
