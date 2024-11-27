@@ -57,7 +57,7 @@ jobs:
       # Step 7: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
-          coscli sync ./dist cos://blog-index-1309745445/
+          coscli sync ./dist cos://blog-index-1309745445/ --recursive
 
       # Step 8: Post-deployment message
       - name: Post Deployment
