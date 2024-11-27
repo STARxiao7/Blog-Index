@@ -24,8 +24,7 @@ jobs:
 
       # Step 3: Build project
       - name: Build Project
-        run: |
-          yarn build
+        run: yarn build
 
       # Step 4: Verify build output
       - name: Verify build output
