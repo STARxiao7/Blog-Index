@@ -28,13 +28,16 @@ jobs:
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 4: Configure coscli
+      # Step 4: Configure coscli (use environment variables directly)
       - name: Configure coscli
+        env:
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
-          coscli config -u <<EOF
+          coscli config <<EOF
           [common]
-          secret_id = ${{ secrets.TENCENT_SECRET_ID }}
-          secret_key = ${{ secrets.TENCENT_SECRET_KEY }}
+          secret_id = ${TENCENT_SECRET_ID}
+          secret_key = ${TENCENT_SECRET_KEY}
           region = ap-guangzhou
           EOF
 
