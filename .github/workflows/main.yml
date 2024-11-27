@@ -28,24 +28,37 @@ jobs:
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 4: Configure coscli (use environment variables directly)
+      # Step 4: Build project
+      - name: Build Project
+        run: |
+          npm install
+          npm run build
+
+      # Step 5: Verify dist folder
+      - name: Verify dist folder
+        run: |
+          if [ ! -d "./dist" ]; then
+            echo "Error: dist folder does not exist. Please check your build process."
+            exit 1
+          fi
+
+      # Step 6: Configure coscli
       - name: Configure coscli
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
-          coscli config <<EOF
-          [common]
-          secret_id = ${TENCENT_SECRET_ID}
-          secret_key = ${TENCENT_SECRET_KEY}
-          region = ap-guangzhou
-          EOF
+          mkdir -p ~/.cos
+          echo "[common]" > ~/.cos/cos.yaml
+          echo "secret_id = ${TENCENT_SECRET_ID}" >> ~/.cos/cos.yaml
+          echo "secret_key = ${TENCENT_SECRET_KEY}" >> ~/.cos/cos.yaml
+          echo "region = ap-guangzhou" >> ~/.cos/cos.yaml
 
-      # Step 5: Upload to Tencent Cloud COS
+      # Step 7: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
-          coscli sync ./dist cos://your-bucket-name/
+          coscli sync ./dist cos://blog-index-1309745445/
 
-      # Step 6: Post Checkout code (optional, clean up if needed)
-      - name: Post Checkout code
-        run: echo "Deployment complete."
+      # Step 8: Post-deployment message
+      - name: Post Deployment
+        run: echo "Deployment to Tencent COS completed."
