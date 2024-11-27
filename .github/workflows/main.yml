@@ -62,19 +62,10 @@ EOF
           echo "Coscli configuration completed. Debugging config file:"
           cat ~/.cos/cos.yaml
 
-      # Step 7: Verify coscli configuration
-      - name: Verify coscli configuration
-        run: |
-          coscli ls cos://blog-index-1309745445/ --config-path ~/.cos/cos.yaml || echo "Bucket listing failed!"
-
-      # Step 8: Upload to Tencent COS
+      # Step 7: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
           coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml
-          if [ $? -ne 0 ]; then
-            echo "COSCLI sync command failed. Exiting."
-            exit 1
-          fi
           echo "Upload finished. Listing files in COS bucket:"
           coscli ls cos://blog-index-1309745445/ --config-path ~/.cos/cos.yaml
