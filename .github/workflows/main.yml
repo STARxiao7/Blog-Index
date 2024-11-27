@@ -24,8 +24,7 @@ jobs:
 
       # Step 3: Build project
       - name: Build Project
-        run: |
-          yarn build
+        run: yarn build
 
       # Step 4: Verify build output
       - name: Verify build output
@@ -41,7 +40,6 @@ jobs:
           curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
-          echo "coscli installed successfully."
 
       # Step 6: Configure coscli
       - name: Configure coscli
@@ -52,8 +50,8 @@ jobs:
           mkdir -p ~/.cos
           cat <<EOF > ~/.cos/cos.yaml
 common:
-  secret_id: ${TENCENT_SECRET_ID}
-  secret_key: ${TENCENT_SECRET_KEY}
+  secret_id: $TENCENT_SECRET_ID
+  secret_key: $TENCENT_SECRET_KEY
   region: ap-shanghai
 buckets:
   - name: blog-index-1309745445
