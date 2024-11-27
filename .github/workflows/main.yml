@@ -1,4 +1,4 @@
-name: Deploy to Tencent Cloud COS
+name: Deploy to Tencent Cloud COS (Updated)
 
 on:
   push:
