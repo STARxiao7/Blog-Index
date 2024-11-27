@@ -20,27 +20,27 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y curl unzip
+          yarn install
 
-      # Step 3: Download and install COSCLI (Linux version)
-      - name: Install coscli
-        run: |
-          curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
-          chmod +x /tmp/coscli
-          sudo mv /tmp/coscli /usr/local/bin/coscli
-
-      # Step 4: Build project
+      # Step 3: Build project
       - name: Build Project
         run: |
-          npm install
-          npm run build
+          yarn build
 
-      # Step 5: Verify dist folder
-      - name: Verify dist folder
+      # Step 4: Verify output folder
+      - name: Verify output folder
         run: |
           if [ ! -d "./dist" ]; then
             echo "Error: dist folder does not exist. Please check your build process."
             exit 1
           fi
+
+      # Step 5: Install coscli
+      - name: Install coscli
+        run: |
+          curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
+          chmod +x /tmp/coscli
+          sudo mv /tmp/coscli /usr/local/bin/coscli
 
       # Step 6: Configure coscli
       - name: Configure coscli
