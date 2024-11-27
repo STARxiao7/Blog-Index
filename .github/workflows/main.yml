@@ -48,22 +48,22 @@ jobs:
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
           mkdir -p ~/.cos
-          cat <<EOF > ~/.cos.yaml
+          cat <<EOF > ~/.cos/cos.yaml
 common:
-  secret_id: $TENCENT_SECRET_ID
-  secret_key: $TENCENT_SECRET_KEY
+  secret_id: ${TENCENT_SECRET_ID}
+  secret_key: ${TENCENT_SECRET_KEY}
   region: ap-shanghai
 buckets:
   - name: blog-index-1309745445
     endpoint: cos.ap-shanghai.myqcloud.com
 EOF
           echo "Coscli configuration completed. Debugging config file:"
-          cat ~/.cos.yaml
+          cat ~/.cos/cos.yaml
 
       # Step 7: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos.yaml
-          echo "Upload finished. Listing files in COS bucket:"
-          coscli ls cos://blog-index-1309745445/ --config-path ~/.cos.yaml
+          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
+          echo "Upload finished. Debugging COSCLI error output:"
+          find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
