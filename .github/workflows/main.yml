@@ -48,16 +48,13 @@ jobs:
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
           mkdir -p ~/.cos
-          cat <<EOF > ~/.cos/cos.yaml
-common:
+          echo "common:
   secret_id: ${TENCENT_SECRET_ID}
   secret_key: ${TENCENT_SECRET_KEY}
   region: ap-shanghai
 buckets:
   - name: blog-index-1309745445
-    endpoint: cos.ap-shanghai.myqcloud.com
-EOF
-          echo "Coscli configuration completed. Debugging config file:"
+    endpoint: cos.ap-shanghai.myqcloud.com" > ~/.cos/cos.yaml
           cat ~/.cos/cos.yaml
 
       # Step 7: Upload to Tencent COS
