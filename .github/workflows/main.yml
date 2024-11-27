@@ -3,7 +3,7 @@ name: Deploy to Tencent Cloud COS
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -11,43 +11,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 检出代码
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 安装依赖工具
-    - name: Install dependencies
-      run: |
-        sudo apt-get update && sudo apt-get install -y curl unzip
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl unzip
 
-    # 下载并安装 coscli
-    - name: Install coscli
-      run: |
-        echo "开始下载 coscli..."
-        curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-linux-amd64.zip -o coscli.zip
-        echo "下载完成，开始解压..."
-        unzip -o coscli.zip -d /tmp || exit 1
-        echo "解压完成，将 coscli 移动到 /usr/local/bin/..."
-        sudo mv /tmp/coscli /usr/local/bin/ || exit 1
-        echo "清理下载的 zip 文件..."
-        rm coscli.zip
+      # Step 3: Download and install COSCLI
+      - name: Install coscli
+        run: |
+          curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-windows-amd64.exe -o /tmp/coscli
+          chmod +x /tmp/coscli
+          sudo mv /tmp/coscli /usr/local/bin/coscli
 
-    # 配置 coscli
-    - name: Configure coscli
-      run: |
-        echo "配置 coscli..."
-        coscli config add -a ${{ secrets.COS_SECRET_ID }} \
-          -s ${{ secrets.COS_SECRET_KEY }} \
-          -b ${{ secrets.COS_BUCKET }} \
-          -r ${{ secrets.COS_REGION }}
+      # Step 4: Configure coscli
+      - name: Configure coscli
+        run: |
+          coscli config -u <<EOF
+          [common]
+          secret_id = ${{ secrets.TENCENT_SECRET_ID }}
+          secret_key = ${{ secrets.TENCENT_SECRET_KEY }}
+          region = ap-guangzhou
+          EOF
 
-    # 上传到腾讯云 COS
-    - name: Upload to Tencent COS
-      run: |
-        echo "上传文件到 Tencent COS..."
-        coscli sync ./dist/ -r # 将本地 ./dist 目录的内容同步到 COS
+      # Step 5: Upload to Tencent Cloud COS
+      - name: Upload to Tencent COS
+        run: |
+          coscli sync ./dist cos://your-bucket-name/
 
-    # 完成部署
-    - name: Post Checkout code
-      run: |
-        echo "部署完成"
+      # Step 6: Post Checkout code (optional, clean up if needed)
+      - name: Post Checkout code
+        run: echo "Deployment complete."
