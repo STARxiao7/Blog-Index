@@ -56,7 +56,13 @@ jobs:
           echo "Coscli configuration completed. Debugging config file:"
           cat ~/.cos/cos.yaml
 
-      # Step 7: Upload to Tencent COS
+      # Step 7: Verify dist folder content before upload
+      - name: Verify dist folder content
+        run: |
+          echo "Listing contents of dist folder:"
+          ls -al dist || echo "dist folder does not exist!"
+
+      # Step 8: Upload to Tencent COS
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
