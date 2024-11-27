@@ -43,20 +43,21 @@ jobs:
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
       # Step 6: Configure coscli
-        # Update coscli configuration file
       - name: Configure coscli
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
         run: |
           mkdir -p ~/.cos
-          echo "[common]" > ~/.cos/cos.yaml
-          echo "secret_id = ${TENCENT_SECRET_ID}" >> ~/.cos/cos.yaml
-          echo "secret_key = ${TENCENT_SECRET_KEY}" >> ~/.cos/cos.yaml
-          echo "region = ap-shanghai" >> ~/.cos/cos.yaml
-          echo "[bucket.blog-index-1309745445]" >> ~/.cos/cos.yaml
-          echo "bucket = blog-index-1309745445" >> ~/.cos/cos.yaml
-          echo "endpoint = cos.ap-shanghai.myqcloud.com" >> ~/.cos/cos.yaml
+          cat <<EOF > ~/.cos/cos.yaml
+common:
+  secret_id: ${TENCENT_SECRET_ID}
+  secret_key: ${TENCENT_SECRET_KEY}
+  region: ap-shanghai
+buckets:
+  - name: blog-index-1309745445
+    endpoint: cos.ap-shanghai.myqcloud.com
+EOF
           echo "Coscli configuration completed. Debugging config file:"
           cat ~/.cos/cos.yaml
 
