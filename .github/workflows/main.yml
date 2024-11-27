@@ -3,8 +3,8 @@ name: Deploy to Tencent Cloud COS
 on:
   push:
     branches:
-      - master # 在 master 分支的提交触发工作流
-  workflow_dispatch: # 手动触发工作流
+      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -24,8 +24,9 @@ jobs:
     - name: Install coscli
       run: |
         curl -o coscli.zip -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-linux-amd64.zip
-        unzip coscli.zip
-        sudo mv coscli /usr/local/bin/
+        unzip -o coscli.zip -d /tmp
+        sudo mv /tmp/coscli /usr/local/bin/
+        rm coscli.zip
 
     # 配置 coscli
     - name: Configure coscli
@@ -38,9 +39,9 @@ jobs:
     # 上传到腾讯云 COS
     - name: Upload to Tencent COS
       run: |
-        coscli sync ./ dist/ -r # 将本地 ./dist 目录的内容同步到 COS
+        coscli sync ./dist/ -r # 将本地 ./dist 目录的内容同步到 COS
 
-    # 清理步骤（可选）
+    # 完成部署
     - name: Post Checkout code
       run: |
         echo "Deployment completed successfully."
