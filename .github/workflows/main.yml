@@ -3,41 +3,44 @@ name: Deploy to Tencent Cloud COS
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发部署
-  pull_request:
-    branches:
-      - main  # 当创建到 main 分支的拉取请求时触发
-  workflow_dispatch:  # 支持手动触发工作流
+      - master # 在 master 分支的提交触发工作流
+  workflow_dispatch: # 手动触发工作流
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 拉取代码
-      - name: Checkout code
-        uses: actions/checkout@v3
+    # 检出代码
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # 安装 coscli
-      - name: Install coscli
-        run: |
-          curl -o coscli.zip https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-linux-amd64.zip
-          unzip coscli.zip -d coscli
-          sudo mv coscli/coscli /usr/local/bin/
+    # 安装依赖工具
+    - name: Install dependencies
+      run: |
+        apt-get update && apt-get install -y curl unzip
 
-      # 配置 coscli
-      - name: Configure coscli
-        run: |
-          mkdir -p ~/.coscli
-          echo "
-          {
-            \"secret_id\": \"${{ secrets.TENCENT_SECRET_ID }}\",
-            \"secret_key\": \"${{ secrets.TENCENT_SECRET_KEY }}\",
-            \"bucket\": \"blog-index-1309745445\",
-            \"region\": \"ap-shanghai\"
-          }
-          " > ~/.coscli/config
+    # 下载并安装 coscli
+    - name: Install coscli
+      run: |
+        curl -o coscli.zip -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-linux-amd64.zip
+        unzip coscli.zip
+        mv coscli /usr/local/bin/
 
-      # 上传文件到 COS
-      - name: Upload to Tencent COS
-        run: coscli sync ./ cos://blog-index-1309745445/ --delete
+    # 配置 coscli
+    - name: Configure coscli
+      run: |
+        coscli config add -a ${{ secrets.COS_SECRET_ID }} \
+          -s ${{ secrets.COS_SECRET_KEY }} \
+          -b ${{ secrets.COS_BUCKET }} \
+          -r ${{ secrets.COS_REGION }}
+
+    # 上传到腾讯云 COS
+    - name: Upload to Tencent COS
+      run: |
+        coscli sync ./ dist/ -r # 将本地 ./dist 目录的内容同步到 COS
+
+    # 清理步骤（可选）
+    - name: Post Checkout code
+      run: |
+        echo "Deployment completed successfully."
