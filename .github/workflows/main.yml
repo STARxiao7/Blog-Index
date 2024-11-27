@@ -24,7 +24,8 @@ jobs:
 
       # Step 3: Build project
       - name: Build Project
-        run: yarn build
+        run: |
+          yarn build
 
       # Step 4: Verify build output
       - name: Verify build output
@@ -66,4 +67,8 @@ EOF
           echo "Uploading files to COS..."
           coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
           echo "Upload finished. Debugging COSCLI error output:"
-          find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
+          if [ -d ./coscli_output ]; then
+            find ./coscli_output -type f -exec cat {} \;
+          else
+            echo "No error output found."
+          fi
