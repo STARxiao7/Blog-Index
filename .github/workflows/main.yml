@@ -64,7 +64,6 @@ jobs:
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive || {
-            echo "Upload failed. Debugging COSCLI error output:"
-            cat ./coscli_output/2024*
-          }
+          coscli sync ./dist cos://blog-index-1309745445/ --recursive || true
+          echo "Upload finished. Debugging COSCLI error output:"
+          cat ./coscli_output/* || echo "No error output found."
