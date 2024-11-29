@@ -54,6 +54,6 @@ jobs:
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./ cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml
+          coscli sync ./ cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml --fail-output false
           echo "Upload finished. Debugging COSCLI error output:"
           find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
