@@ -3,46 +3,38 @@ name: Deploy to Tencent Cloud COS
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main  # 监听 `main` 分支的推送
+  workflow_dispatch:  # 手动触发工作流
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 在 Ubuntu 环境中运行
 
     steps:
       # Step 1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # 检出仓库代码
 
       # Step 2: Install dependencies
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y curl unzip
-          yarn install
+          yarn install  # 安装项目依赖
 
-      # Step 3: Build project
+      # Step 3: Build project (可选，根据需要)
       - name: Build Project
         run: |
-          yarn build
+          yarn build  # 如果需要构建项目
 
-      # Step 4: Verify build output
-      - name: Verify build output
-        run: |
-          echo "Listing all files in the current directory:"
-          ls -al
-          echo "Checking the dist folder:"
-          ls -al dist || echo "dist folder does not exist!"
-
-      # Step 5: Install coscli
+      # Step 4: Install coscli (腾讯云 CLI 工具)
       - name: Install coscli
         run: |
           curl -L https://github.com/tencentyun/coscli/releases/download/v1.0.2/coscli-v1.0.2-linux-amd64 -o /tmp/coscli
           chmod +x /tmp/coscli
           sudo mv /tmp/coscli /usr/local/bin/coscli
 
-      # Step 6: Configure coscli
+      # Step 5: Configure coscli with secrets from GitHub
       - name: Configure coscli
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
@@ -56,13 +48,12 @@ jobs:
           echo "buckets:" >> ~/.cos/cos.yaml
           echo "  - name: blog-index-1309745445" >> ~/.cos/cos.yaml
           echo "    endpoint: cos.ap-shanghai.myqcloud.com" >> ~/.cos/cos.yaml
-          echo "Coscli configuration completed. Debugging config file:"
-          cat ~/.cos/cos.yaml
+          cat ~/.cos/cos.yaml  # 打印配置文件内容，调试用
 
-      # Step 7: Upload to Tencent COS
+      # Step 6: Upload the entire repository to Tencent COS
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
+          coscli sync ./ cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml
           echo "Upload finished. Debugging COSCLI error output:"
           find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
