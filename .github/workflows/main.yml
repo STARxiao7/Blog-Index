@@ -47,16 +47,16 @@ jobs:
         env:
           TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
           TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_SESSION_TOKEN: ${{ secrets.TENCENT_SESSION_TOKEN }}
         run: |
-          # Create the cos.yaml config file in GitHub Actions environment
           mkdir -p ~/.cos
           echo "common:" > ~/.cos/cos.yaml
           echo "  secret_id: ${TENCENT_SECRET_ID}" >> ~/.cos/cos.yaml
           echo "  secret_key: ${TENCENT_SECRET_KEY}" >> ~/.cos/cos.yaml
-          echo "  region: ap-shanghai" >> ~/.cos/cos.yaml
+          echo "  region: ${{ secrets.COS_REGION }}" >> ~/.cos/cos.yaml
           echo "buckets:" >> ~/.cos/cos.yaml
-          echo "  - name: blog-index-1309745445" >> ~/.cos/cos.yaml
-          echo "    endpoint: cos.ap-shanghai.myqcloud.com" >> ~/.cos/cos.yaml
+          echo "  - name: ${{ secrets.COS_BUCKET_NAME }}" >> ~/.cos/cos.yaml
+          echo "    endpoint: ${{ secrets.COS_ENDPOINT }}" >> ~/.cos/cos.yaml
           echo "Coscli configuration completed. Debugging config file:"
           cat ~/.cos/cos.yaml
 
@@ -64,6 +64,6 @@ jobs:
       - name: Upload to Tencent COS
         run: |
           echo "Uploading files to COS..."
-          coscli sync ./dist cos://blog-index-1309745445/ --recursive --config-path ~/.cos/cos.yaml || true
+          coscli sync ./dist cos://$COS_BUCKET_NAME/ --recursive --config-path ~/.cos/cos.yaml || true
           echo "Upload finished. Debugging COSCLI error output:"
           find ./coscli_output -type f -exec cat {} \; || echo "No error output found."
